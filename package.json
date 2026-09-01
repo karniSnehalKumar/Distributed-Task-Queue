@@ -1,0 +1,27 @@
+{
+  "name": "distributed-task-queue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js",
+    "worker": "node server/worker.js",
+    "watchdog": "node server/watchdog.js",
+    "flush": "docker exec task-queue-redis redis-cli FLUSHALL",
+
+    "docker:up": "docker compose up --build",
+    "docker:scale": "docker compose up --build --scale worker=4",
+    "docker:down": "docker compose down"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "ioredis": "^6.0.0",
+    "uuid": "^14.0.1"
+  }
+}
