@@ -36,3 +36,15 @@ services:
       redis:
         condition: service_healthy
     restart: "no"
+
+  watchdog:
+    build: .
+    container_name: task-queue-watchdog
+    command: node server/watchdog.js
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
