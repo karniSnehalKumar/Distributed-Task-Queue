@@ -60,8 +60,9 @@ A lightweight, observable, and fault-tolerant **distributed background task queu
 ### 3. Exponential Backoff Retries
 * **Problem**: Retrying failed jobs immediately overwhelms downstream services and causes thundering herd problems.
 * **Solution**: Failed jobs calculate delay:
-  $$\text{delay} = \text{BASE\_DELAY} \times 2^{\text{attempts} - 1}$$
-  The job is reinserted into the Redis Sorted Set with `score = Date.now() + delay`. Workers only pop jobs where `score <= Date.now()`, ensuring retries are smoothly delayed.
+  $$\text{delay} = \text{BASE}\_\text{DELAY} \times 2^{\text{attempts} - 1}$$
+  The job is re-inserted into the Redis Sorted Set with `score = Date.now() + delay`. Workers only pop jobs where `score <= Date.now()`, ensuring retries are smoothly delayed.
+
 
 ### 4. Dead-Letter Queue (DLQ)
 * **Problem**: Poison-pill jobs that repeatedly fail would consume infinite retries.
